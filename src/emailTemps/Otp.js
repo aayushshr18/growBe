@@ -55,7 +55,7 @@ const otpTemplate = (otp) => {
             <h1>Your OTP Code</h1>
           </div>
           <div class="content">
-            <p>Your OTP for authentication of your Collings Denture account is:
+            <p>Your OTP for authentication of your Growthyari account is:
   </p>
             <p class="otp">${otp}</p>
             <p>It expires in 3 minutes. Please use this OTP to securely log in.</p>
