@@ -171,7 +171,11 @@ exports.loginUser = async (req, res) => {
 
 exports.userDetails = async (req, res) => {
   try {
-    const userId = req.user.id;
+    let userId = req.user.id;
+    if(req.query.id){
+      userId=req.query.id;
+    }
+
     const user = await User.findById(userId).select(
       "-password -createdDate -__v"
     );
@@ -207,7 +211,10 @@ exports.allUserDetails = async (req, res) => {
 
 exports.updateUser = async (req, res) => {
   try {
-    const _id = req.user.id;
+    let _id = req.user.id;
+    if(req.query.id){
+      _id=req.query.id;
+    }
     const updates = req.body;
     if (updates.password) {
       const saltRounds = 10;
@@ -239,12 +246,12 @@ exports.updateUser = async (req, res) => {
 };
 
 exports.deleteUser = async (req, res) => {
-  const userId = req.user.id;
+  const userId = req.params.id;
   try {
     const deletedUser = await User.findByIdAndDelete(userId);
     if (deletedUser) {
       res.send({
-        message: `Successfully deleted user ${req.user.email}`,
+        message: `Successfully deleted user`,
         status: true,
       });
     } else {
