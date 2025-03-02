@@ -196,7 +196,20 @@ exports.userDetails = async (req, res) => {
 
 exports.allUserDetails = async (req, res) => {
   try {
-    const users = await User.find();
+    const { name, email } = req.query; 
+
+    let query = {};
+
+    if (name) {
+      query.name = { $regex: name, $options: 'i' }; 
+    }
+
+    if (email) {
+      query.email = { $regex: email, $options: 'i' };
+    }
+
+    const users = await User.find(query);
+
     res.json({
       status: true,
       data: users,
@@ -208,6 +221,7 @@ exports.allUserDetails = async (req, res) => {
     });
   }
 };
+
 
 exports.updateUser = async (req, res) => {
   try {
